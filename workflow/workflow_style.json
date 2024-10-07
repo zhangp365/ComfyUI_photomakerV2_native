@@ -1,0 +1,699 @@
+{
+  "last_node_id": 105,
+  "last_link_id": 80,
+  "nodes": [
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": {
+        "0": 1481,
+        "1": -271
+      },
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 26
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            52
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 53,
+      "type": "SaveImage",
+      "pos": {
+        "0": 1471,
+        "1": -151
+      },
+      "size": {
+        "0": 420.76483154296875,
+        "1": 657.74658203125
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 52
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "prefix"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": {
+        "0": 232,
+        "1": -115
+      },
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            46
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 103,
+      "type": "PhotoMakerLoaderV2",
+      "pos": {
+        "0": 698,
+        "1": -282
+      },
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PHOTOMAKERV2",
+          "type": "PHOTOMAKERV2",
+          "links": [
+            56
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PhotoMakerLoaderV2"
+      },
+      "widgets_values": [
+        "photomaker-v2.bin"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": {
+        "0": 244,
+        "1": -267
+      },
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            53,
+            54
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            30,
+            58
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            27
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "realvisxlV40_v40Bakedvae.safetensors"
+      ]
+    },
+    {
+      "id": 104,
+      "type": "PhotoMakerEncodeV2",
+      "pos": {
+        "0": 608,
+        "1": -157
+      },
+      "size": {
+        "0": 443.4000244140625,
+        "1": 200
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "photomakerv2",
+          "type": "PHOTOMAKERV2",
+          "link": 56
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 57
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 58
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 59,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "merged conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            80
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "text only conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            79
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PhotoMakerEncodeV2"
+      },
+      "widgets_values": [
+        "photograph of photomaker"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "SDXLPromptStyler",
+      "pos": {
+        "0": 649,
+        "1": 117
+      },
+      "size": {
+        "0": 422.6881408691406,
+        "1": 300.99981689453125
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_positive",
+          "type": "STRING",
+          "links": [
+            59
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "text_negative",
+          "type": "STRING",
+          "links": [
+            28,
+            29
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SDXLPromptStyler"
+      },
+      "widgets_values": [
+        "a Asia woman, photomaker",
+        "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "sai-cinematic",
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 23,
+      "type": "LoadImage",
+      "pos": {
+        "0": 155,
+        "1": 48
+      },
+      "size": {
+        "0": 453.5999755859375,
+        "1": 378
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            57
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "filename",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Load Image",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Oo5r-hvvuiyp2366853.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "CLIPTextEncodeSDXL",
+      "pos": {
+        "0": 567,
+        "1": 466
+      },
+      "size": {
+        "0": 400,
+        "1": 226
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 30
+        },
+        {
+          "name": "text_g",
+          "type": "STRING",
+          "link": 28,
+          "widget": {
+            "name": "text_g"
+          }
+        },
+        {
+          "name": "text_l",
+          "type": "STRING",
+          "link": 29,
+          "widget": {
+            "name": "text_l"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            49,
+            75
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncodeSDXL"
+      },
+      "widgets_values": [
+        4096,
+        4096,
+        0,
+        0,
+        1024,
+        1024,
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 101,
+      "type": "KSamplerAdvanced",
+      "pos": {
+        "0": 1118,
+        "1": -271
+      },
+      "size": {
+        "0": 315,
+        "1": 334
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 53
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 79
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 75
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 46
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            50
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerAdvanced"
+      },
+      "widgets_values": [
+        "enable",
+        80,
+        "fixed",
+        20,
+        4,
+        "dpmpp_2m_sde_gpu",
+        "karras",
+        0,
+        4,
+        "enable"
+      ]
+    },
+    {
+      "id": 102,
+      "type": "KSamplerAdvanced",
+      "pos": {
+        "0": 1119,
+        "1": 109
+      },
+      "size": {
+        "0": 315,
+        "1": 334
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 54
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 80
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 49
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 50
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            26
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerAdvanced"
+      },
+      "widgets_values": [
+        "disable",
+        80,
+        "fixed",
+        20,
+        4,
+        "dpmpp_2m_sde_gpu",
+        "karras",
+        4,
+        20,
+        "disable"
+      ]
+    }
+  ],
+  "links": [
+    [
+      26,
+      102,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      27,
+      4,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      28,
+      15,
+      1,
+      13,
+      1,
+      "STRING"
+    ],
+    [
+      29,
+      15,
+      1,
+      13,
+      2,
+      "STRING"
+    ],
+    [
+      30,
+      4,
+      1,
+      13,
+      0,
+      "CLIP"
+    ],
+    [
+      46,
+      5,
+      0,
+      101,
+      3,
+      "LATENT"
+    ],
+    [
+      49,
+      13,
+      0,
+      102,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      50,
+      101,
+      0,
+      102,
+      3,
+      "LATENT"
+    ],
+    [
+      52,
+      8,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      53,
+      4,
+      0,
+      101,
+      0,
+      "MODEL"
+    ],
+    [
+      54,
+      4,
+      0,
+      102,
+      0,
+      "MODEL"
+    ],
+    [
+      56,
+      103,
+      0,
+      104,
+      0,
+      "PHOTOMAKERV2"
+    ],
+    [
+      57,
+      23,
+      0,
+      104,
+      1,
+      "IMAGE"
+    ],
+    [
+      58,
+      4,
+      1,
+      104,
+      2,
+      "CLIP"
+    ],
+    [
+      59,
+      15,
+      0,
+      104,
+      3,
+      "STRING"
+    ],
+    [
+      75,
+      13,
+      0,
+      101,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      79,
+      104,
+      1,
+      101,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      80,
+      104,
+      0,
+      102,
+      1,
+      "CONDITIONING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0152559799478131,
+      "offset": [
+        130.05380218974187,
+        493.64537210542227
+      ]
+    }
+  },
+  "version": 0.4
+}

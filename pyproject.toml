@@ -1,0 +1,15 @@
+[project]
+name = "comfyui_photomakerV2_native"
+description = "Nodes: PhotoMakerLoaderV2,PhotoMakerEncodeV2"
+version = "0.9.0"
+license = { file = "LICENSE" }
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/zhangp365/ComfyUI_photomakerV2_native"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "zhangp365"
+DisplayName = "ComfyUI_photomakerV2_native"
+Icon = ""

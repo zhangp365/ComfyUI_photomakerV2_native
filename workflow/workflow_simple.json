@@ -1,0 +1,593 @@
+{
+  "last_node_id": 107,
+  "last_link_id": 86,
+  "nodes": [
+    {
+      "id": 103,
+      "type": "PhotoMakerLoaderV2",
+      "pos": {
+        "0": 698,
+        "1": -282
+      },
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PHOTOMAKERV2",
+          "type": "PHOTOMAKERV2",
+          "links": [
+            56
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PhotoMakerLoaderV2"
+      },
+      "widgets_values": [
+        "photomaker-v2.bin"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": {
+        "0": 244,
+        "1": -267
+      },
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            83
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            30,
+            58
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            27
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "realvisxlV40_v40Bakedvae.safetensors"
+      ]
+    },
+    {
+      "id": 104,
+      "type": "PhotoMakerEncodeV2",
+      "pos": {
+        "0": 603,
+        "1": -146
+      },
+      "size": {
+        "0": 443.4000244140625,
+        "1": 200
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "photomakerv2",
+          "type": "PHOTOMAKERV2",
+          "link": 56
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 86
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 58
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 59,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "merged conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            81
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "text only conditioning",
+          "type": "CONDITIONING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PhotoMakerEncodeV2"
+      },
+      "widgets_values": [
+        "photograph of photomaker"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": {
+        "0": 232,
+        "1": -115
+      },
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            84
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 13,
+      "type": "CLIPTextEncodeSDXL",
+      "pos": {
+        "0": 644,
+        "1": 431
+      },
+      "size": {
+        "0": 400,
+        "1": 226
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 30
+        },
+        {
+          "name": "text_g",
+          "type": "STRING",
+          "link": 28,
+          "widget": {
+            "name": "text_g"
+          }
+        },
+        {
+          "name": "text_l",
+          "type": "STRING",
+          "link": 29,
+          "widget": {
+            "name": "text_l"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            82
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncodeSDXL"
+      },
+      "widgets_values": [
+        4096,
+        4096,
+        0,
+        0,
+        1024,
+        1024,
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 106,
+      "type": "KSampler",
+      "pos": {
+        "0": 1107,
+        "1": -52
+      },
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 83
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 81
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 82
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 84
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            85
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        20,
+        4,
+        "dpmpp_2m_sde_gpu",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 107,
+      "type": "LoadImage",
+      "pos": {
+        "0": 256,
+        "1": 76
+      },
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            86
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Oo5r-hvvuiyp2366853.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 53,
+      "type": "SaveImage",
+      "pos": {
+        "0": 1439,
+        "1": -221
+      },
+      "size": {
+        "0": 420.76483154296875,
+        "1": 657.74658203125
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 52
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "prefix"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": {
+        "0": 1140,
+        "1": -171
+      },
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 85
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            52
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 15,
+      "type": "SDXLPromptStyler",
+      "pos": {
+        "0": 619,
+        "1": 88
+      },
+      "size": {
+        "0": 422.6881408691406,
+        "1": 300.99981689453125
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text_positive",
+          "type": "STRING",
+          "links": [
+            59
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "text_negative",
+          "type": "STRING",
+          "links": [
+            28,
+            29
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SDXLPromptStyler"
+      },
+      "widgets_values": [
+        "a Asia woman, photomaker",
+        "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "sai-cinematic",
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "links": [
+    [
+      27,
+      4,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      28,
+      15,
+      1,
+      13,
+      1,
+      "STRING"
+    ],
+    [
+      29,
+      15,
+      1,
+      13,
+      2,
+      "STRING"
+    ],
+    [
+      30,
+      4,
+      1,
+      13,
+      0,
+      "CLIP"
+    ],
+    [
+      52,
+      8,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      103,
+      0,
+      104,
+      0,
+      "PHOTOMAKERV2"
+    ],
+    [
+      58,
+      4,
+      1,
+      104,
+      2,
+      "CLIP"
+    ],
+    [
+      59,
+      15,
+      0,
+      104,
+      3,
+      "STRING"
+    ],
+    [
+      81,
+      104,
+      0,
+      106,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      82,
+      13,
+      0,
+      106,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      83,
+      4,
+      0,
+      106,
+      0,
+      "MODEL"
+    ],
+    [
+      84,
+      5,
+      0,
+      106,
+      3,
+      "LATENT"
+    ],
+    [
+      85,
+      106,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      86,
+      107,
+      0,
+      104,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.1167815779426078,
+      "offset": [
+        -173.64123903349355,
+        397.94954909725584
+      ]
+    }
+  },
+  "version": 0.4
+}
