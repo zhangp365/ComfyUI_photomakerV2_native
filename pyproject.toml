@@ -1,7 +1,7 @@
 [project]
-name = "comfyui_photomakerV2_native"
+name = "comfyui-photomakerv2-native"
 description = "Nodes: PhotoMakerLoaderV2,PhotoMakerEncodeV2"
-version = "0.9.0"
+version = "0.9.1"
 license = { file = "LICENSE" }
 dependencies = []
 
