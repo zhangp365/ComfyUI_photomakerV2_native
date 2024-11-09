@@ -10,6 +10,6 @@ Repository = "https://github.com/zhangp365/ComfyUI_photomakerV2_native"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = "zhangp365"
+PublisherId = "zhangp3652"
 DisplayName = "ComfyUI_photomakerV2_native"
 Icon = ""
