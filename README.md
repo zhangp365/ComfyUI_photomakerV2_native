@@ -17,7 +17,7 @@ PhotoMaker v2 requires the InsightFace library, so please ensure all dependencie
 pip install -r requirements.txt
 ```
 
-As in v1, download and place the [photomaker-v2.bin](https://huggingface.co/TencentARC/PhotoMaker-V2/blob/main/photomaker-v2.bin) file in the `/app/models/photomaker` directory.
+As in v1, download and place the [photomaker-v2.bin](https://huggingface.co/TencentARC/PhotoMaker-V2/blob/main/photomaker-v2.bin) file in the `comfyui/models/photomaker` directory.
 
 When the node runs for the first time, it will automatically download the InsightFace model.
 
